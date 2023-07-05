@@ -13,7 +13,21 @@ const connect = function() {
     console.log(data);
   });
 
+  conn.on("connect", () => {
+
+    logToClient("Hissss! You're connected.");
+    logToServer(conn, "Name", "DMC");
+  });
+
   return conn;
+};
+
+const logToClient = (message) => {
+  process.stdout.write(message + "\n");
+};
+
+const logToServer = (connection, header, body) => {
+  return connection.write(`${header}: ${body}`);
 };
 
 module.exports = { connect };
